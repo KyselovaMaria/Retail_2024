@@ -11,5 +11,8 @@ export class OrdersRouter {
     this.controller = new OrderController();
     this.router.get('/:id',this.controller.getOrderById)
     this.router.get('/',this.controller.getAllOrders)
+    this.router.post('/',this.controller.createOrder)
+    this.router.delete('/',this.controller.deleteOrder)
+    this.router.post('/:id',this.controller.updateOrder)
   }
 }

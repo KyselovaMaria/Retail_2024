@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 @Table({modelName: "Employee"})
 export class Employee extends Model {
     @PrimaryKey
-    @Default(uuidv4())
+    @Default(DataType.UUIDV4)
     @Column(DataType.CHAR(36))
     id: string
     

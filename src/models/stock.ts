@@ -6,24 +6,30 @@ import { v4 as uuidv4 } from 'uuid'
 @Table({modelName: "Stock"})
 export class Stock extends Model {
     @PrimaryKey
-    @Default(uuidv4())
+    @Default(DataType.UUIDV4)
     @Column(DataType.CHAR(36))
     id: string
 
     @ForeignKey(() => Product)
     @Column(DataType.CHAR(36))
-    productId: number
+    productId: string
     
     @ForeignKey(() => Warehouse)
     @Column(DataType.CHAR(36))
-    warehouseId: number
+    warehouseId: string
 
     @Column(DataType.INTEGER)
     amount: number
 
-    @BelongsTo(() => Product)
+    @BelongsTo(() => Product, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
+    })
     product: Product
 
-    @BelongsTo(() => Warehouse)
+    @BelongsTo(() => Warehouse, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
+    })
     warehouse: Warehouse
 }

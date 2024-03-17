@@ -6,24 +6,30 @@ import { v4 as uuidv4 } from 'uuid'
 @Table({modelName: "OrderListing"})
 export class OrderListing extends Model {
     @PrimaryKey
-    @Default(uuidv4())
+    @Default(DataType.UUIDV4)
     @Column(DataType.CHAR(36))
     id: string
     
     @ForeignKey(() => Order)
     @Column(DataType.CHAR(36))
-    orderId: number
+    orderId: string
 
     @ForeignKey(() => Product)
     @Column(DataType.CHAR(36))
-    productId: number
+    productId: string
 
     @Column(DataType.INTEGER)
     amount: number
 
-    @BelongsTo(() => Order)
+    @BelongsTo(() => Order, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
+    })
     order: Order
 
-    @BelongsTo(() => Product)
+    @BelongsTo(() => Product, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
+    })
     product: Product
 }

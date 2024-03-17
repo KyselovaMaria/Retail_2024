@@ -1,11 +1,11 @@
-import { Column, DataType, Default, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { BelongsToMany, Column, DataType, Default, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
 import { Stock } from "@/models/stock";
-import { v4 as uuidv4 } from 'uuid'
+import { Product } from "./product";
 
 @Table({modelName: "Warehouse"})
 export class Warehouse extends Model {
     @PrimaryKey
-    @Default(uuidv4())
+    @Default(DataType.UUIDV4)
     @Column(DataType.CHAR(36))
     id: string
 
@@ -17,4 +17,7 @@ export class Warehouse extends Model {
 
     @HasMany(() => Stock)
     stocks: Stock[]
+
+    @BelongsToMany(() => Product, () => Stock)
+    product: Product[]
 }

@@ -1,10 +1,11 @@
-import { Column, DataType, Default, IsEmail, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { Column, DataType, Default, HasOne, IsEmail, Model, PrimaryKey, Table } from "sequelize-typescript";
 import { v4 as uuidv4 } from 'uuid'
+import { Order } from "./order";
 
 @Table({modelName: "Customer"})
 export class Customer extends Model {
     @PrimaryKey
-    @Default(uuidv4())
+    @Default(DataType.UUIDV4)
     @Column(DataType.CHAR(36))
     id: string
 
@@ -26,5 +27,8 @@ export class Customer extends Model {
 
     @Column(DataType.STRING)
     shippingAdress: string
+
+    @HasOne(() => Order)
+    order: Order
 }
 

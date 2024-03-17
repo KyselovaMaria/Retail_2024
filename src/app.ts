@@ -3,6 +3,10 @@ import cors from "cors";
 import sequelize from "@/config/sequelize.js";
 import { OrdersRouter } from "@/routers/order";
 import { Boom, isBoom } from "@hapi/boom";
+import { CustomerRouter } from "./routers/customer";
+import { EmployeeRouter } from "./routers/employee";
+import { WarehouseRouter } from "./routers/warehouse";
+import { ProductRouter } from "./routers/product";
 
 (async () => {
   const app = express();
@@ -17,9 +21,13 @@ import { Boom, isBoom } from "@hapi/boom";
     return res.status(200).send("found")
   })
 
-  const orderRouter = new OrdersRouter("/orders")
+  const orderRouter = new OrdersRouter("/order")
+  const customerRoute = new CustomerRouter("/customer")
+  const employeeRoute = new EmployeeRouter("/employee")
+  const warehouseRouter = new WarehouseRouter("/warehouse")
+  const productRouter = new ProductRouter("/product")
   
-  const routes = [orderRouter];
+  const routes = [orderRouter, customerRoute, employeeRoute, warehouseRouter, productRouter];
   routes.forEach((route) => {
     app.use(route.path, route.router);
   });
