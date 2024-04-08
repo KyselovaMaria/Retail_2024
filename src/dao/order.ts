@@ -1,16 +1,23 @@
 import { OrderDaoCreate } from "@/@types/order";
+import { Customer } from "@/models/customer";
 import { Order } from "@/models/order";
+import { Product } from "@/models/product";
+import { Warehouse } from "@/models/warehouse";
 
 export class OrderDao {
   constructor() {}
 
   public static getAllOrders = async () => {
-    const orders = await Order.findAll();
+    const orders = await Order.findAll({
+      include: [Product, Customer, Warehouse]
+    });
     return orders
   };
 
   public static getOrderById = async (id: string) => {
-    const order = await Order.findByPk(id)
+    const order = await Order.findByPk(id, {
+      include: [Product, Customer, Warehouse]
+    })
     return order
   };
 

@@ -12,7 +12,8 @@ export class WarehouseRouter {
     this.router.get('/:id',this.controller.getWarehouseById)
     this.router.get('/',this.controller.getAllWarehouses)
     this.router.post('/',this.controller.createWarehouse)
-    this.router.delete('/',this.controller.deleteWarehouse)
+    this.router.delete('/:id',this.controller.deleteWarehouse)
     this.router.post('/:id',this.controller.updateWarehouse)
+    this.router.get('/withProduct/:id',this.controller.getAllWarehousesWithProduct)
   }
 }

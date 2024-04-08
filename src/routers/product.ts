@@ -12,7 +12,7 @@ export class ProductRouter {
     this.router.get('/:id',this.controller.getProductById)
     this.router.get('/',this.controller.getAllProducts)
     this.router.post('/',this.controller.createProduct)
-    this.router.delete('/',this.controller.deleteProduct)
+    this.router.delete('/:id',this.controller.deleteProduct)
     this.router.post('/:id',this.controller.updateProduct)
   }
 }

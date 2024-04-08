@@ -7,12 +7,15 @@ import { CustomerRouter } from "./routers/customer";
 import { EmployeeRouter } from "./routers/employee";
 import { WarehouseRouter } from "./routers/warehouse";
 import { ProductRouter } from "./routers/product";
+import { OrderListingRouter } from "./routers/orderListing";
+import { StockRouter } from "./routers/stock";
 
 (async () => {
   const app = express();
   const PORT = 3000;
   
-  await sequelize.sync({ force: true })
+  // await sequelize.sync({ alter: true })
+  await sequelize.sync()
   
   app.use(express.json());
   app.use(cors());
@@ -26,8 +29,10 @@ import { ProductRouter } from "./routers/product";
   const employeeRoute = new EmployeeRouter("/employee")
   const warehouseRouter = new WarehouseRouter("/warehouse")
   const productRouter = new ProductRouter("/product")
+  const orderListingRouter = new OrderListingRouter("/orderListing")
+  const stockRouter = new StockRouter("/stock")
   
-  const routes = [orderRouter, customerRoute, employeeRoute, warehouseRouter, productRouter];
+  const routes = [orderRouter, customerRoute, employeeRoute, warehouseRouter, productRouter, orderListingRouter, stockRouter];
   routes.forEach((route) => {
     app.use(route.path, route.router);
   });

@@ -12,7 +12,7 @@ export class CustomerRouter {
     this.router.get('/:id',this.controller.getCustomerById)
     this.router.get('/',this.controller.getAllCustomers)
     this.router.post('/',this.controller.createCustomer)
-    this.router.delete('/',this.controller.deleteCustomer)
+    this.router.delete('/:id',this.controller.deleteCustomer)
     this.router.post('/:id',this.controller.updateCustomer)
   }
 }

@@ -6,7 +6,7 @@ export type OrderListingDaoCreate = {
   amount: string;
 }
 
-export interface IOrderCreateRequest extends Request {
+export interface IOrderListingCreateRequest extends Request {
   body: OrderListingDaoCreate;
 }
 

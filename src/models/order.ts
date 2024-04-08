@@ -1,20 +1,24 @@
-import { Table, Column, DataType, Model, HasMany, ForeignKey, PrimaryKey, Default, BelongsTo } from "sequelize-typescript"
+import { Table, Column, DataType, Model, HasMany, ForeignKey, PrimaryKey, Default, BelongsTo, AllowNull, BelongsToMany } from "sequelize-typescript"
 import { v4 as uuidv4 } from 'uuid'
 import { Customer } from "./customer"
 import { OrderListing } from "./orderListing"
 import { Warehouse } from "./warehouse"
+import { Product } from "./product"
 
 @Table({modelName: "Order"})
 export class Order extends Model {
     @PrimaryKey
+    @AllowNull(false)
     @Default(DataType.UUIDV4)
     @Column(DataType.CHAR(36))
     id: string
 
+    @AllowNull(false)
     @ForeignKey(() => Customer)
     @Column(DataType.CHAR(36))
     customerId: string
 
+    @AllowNull(false)
     @ForeignKey(() => Warehouse)
     @Column(DataType.CHAR(36))
     warehouseId: string
@@ -27,4 +31,7 @@ export class Order extends Model {
 
     @HasMany(() => OrderListing)
     orderListing: OrderListing[]
+
+    @BelongsToMany(() => Product, () => OrderListing)
+    product: Product[]
 }

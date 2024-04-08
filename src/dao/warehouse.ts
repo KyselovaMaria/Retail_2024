@@ -1,16 +1,34 @@
 import { WarehouseDaoCreate } from "@/@types/warehouse";
+import { Product } from "@/models/product";
 import { Warehouse } from "@/models/warehouse";
+import { Op } from "sequelize";
 
 export class WarehouseDao {
   constructor() {}
 
   public static getAllWarehouses = async () => {
-    const warehouses = await Warehouse.findAll();
+    const warehouses = await Warehouse.findAll({
+      include: [Product]
+    });
+    return warehouses
+  };
+
+  public static getWarehousesFromList = async (warehouseIds: string[]) => {
+    const warehouses = await Warehouse.findAll({
+      include: [Product],
+      where: {
+        id: {
+          [Op.in]: warehouseIds
+        }
+      }
+    });
     return warehouses
   };
 
   public static getWarehouseById = async (id: string) => {
-    const warehouse = await Warehouse.findByPk(id)
+    const warehouse = await Warehouse.findByPk(id, {
+      include: [Product]
+    })
     return warehouse
   };
 

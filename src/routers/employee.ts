@@ -12,7 +12,7 @@ export class EmployeeRouter {
     this.router.get('/:id',this.controller.getEmployeeById)
     this.router.get('/',this.controller.getAllEmployees)
     this.router.post('/',this.controller.createEmployee)
-    this.router.delete('/',this.controller.deleteEmployee)
+    this.router.delete('/:id',this.controller.deleteEmployee)
     this.router.post('/:id',this.controller.updateEmployee)
   }
 }
