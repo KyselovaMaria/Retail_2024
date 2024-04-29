@@ -31,8 +31,5 @@ export class Customer extends Model {
 
     @Column(DataType.STRING)
     shippingAdress: string
-
-    @HasOne(() => Order)
-    order: Order
 }
 

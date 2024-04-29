@@ -1,4 +1,5 @@
 import { OrderController } from "@/controllers/order";
+import { PermissionsClass } from "@/utils/permissions";
 import { Router } from "express";
 
 export class OrdersRouter {
@@ -14,5 +15,6 @@ export class OrdersRouter {
     this.router.post('/',this.controller.createOrder)
     this.router.delete('/:id',this.controller.deleteOrder)
     this.router.post('/:id',this.controller.updateOrder)
+    this.router.post('/confirm/:id', PermissionsClass.managerPermission, this.controller.confirmOrder)
   }
 }

@@ -1,8 +1,8 @@
 import { Request } from "express";
 
 export type OrderDaoCreate = {
-  customerId: string;
   warehouseId: string;
+  shippingAddress: string;
 }
 
 export interface IOrderCreateRequest extends Request {
@@ -11,7 +11,7 @@ export interface IOrderCreateRequest extends Request {
 
 export interface IOrder {
   id: string;
-  customerId: string;
   warehouseId: string;
+  shippingAddress: string;
 }
 

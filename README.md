@@ -23,63 +23,14 @@
 Приклад JSON-об'єкту для створення нового замовлення:
 ```json
 {
-  customerId: string;
   warehouseId: string;
+  shippingAddress: string;
 }
 ```
 
-### /customer
+#### POST /confirm/:id
 
-#### GET /
-
-Отримати список всіх клієнтів.
-
-#### GET /:id
-
-Отримати конкретного клієнта за його ідентифікатором.
-
-#### POST /
-
-Створити нового клієнта з наданими даними в тілі запиту.
-
-Приклад JSON-об'єкту для створення нового замовника:
-```json
-{
-  lastName: string;
-  firstName: string;
-  phone: string;
-  email: string;
-  shippingAdress: string;
-}
-```
-
-### /employee
-
-#### GET /
-
-Отримати список всіх працівників.
-
-#### GET /:id
-
-Отримати конкретного працівника за його ідентифікатором.
-
-#### POST /
-
-Створити нового працівника з наданими даними в тілі запиту.
-
-Приклад JSON-об'єкту для створення нового працівника:
-```json
-{
-  lastName: string;
-  firstName: string;
-  phone: string;
-  email: string;
-  employment: string;
-  address: string;
-  birthDate: Date;
-  employmentDate: Date;
-}
-```
+Підтвердження замовлення, необхідно мати роль менеджер чи адмін
 
 ### /warehouse
 
@@ -107,6 +58,13 @@
 }
 ```
 
+Приклад HTTP-header:
+```json
+{
+  Authorization: Bearer {token}
+}
+```
+
 ### /product
 
 #### GET /
@@ -130,6 +88,13 @@
 }
 ```
 
+Приклад HTTP-header:
+```json
+{
+  Authorization: Bearer {token}
+}
+```
+
 ### /stock
 
 #### POST /addToStock
@@ -141,6 +106,13 @@
 {
   id: string;
   amount: number;
+}
+```
+
+Приклад HTTP-header:
+```json
+{
+  Authorization: Bearer {token}
 }
 ```
 
@@ -157,6 +129,13 @@
 }
 ```
 
+Приклад HTTP-header:
+```json
+{
+  Authorization: Bearer {token}
+}
+```
+
 #### POST /
 
 Створити новий продукт з наданими даними в тілі запиту.
@@ -167,6 +146,13 @@
   productId: string;
   warehouseId: string;
   amount: number;
+}
+```
+
+Приклад HTTP-header:
+```json
+{
+  Authorization: Bearer {token}
 }
 ```
 
@@ -185,3 +171,74 @@
   amount: number;
 }
 ```
+
+
+### /auth
+
+#### POST /login
+
+Отримати новий токен через логін.
+
+Приклад JSON-об'єкту:
+```json
+{
+  username: string
+  password: string
+}
+```
+
+#### POST /signup
+
+Створити нового юзера з роллю. roleId: 1 - admin, 2 - manager, 3 customer
+
+Приклад JSON-об'єкту для створення нового юзера:
+```json
+{
+  username: string,
+  email: string,
+  password: string,
+  roleId: number,
+}
+```
+
+### /user
+
+#### GET /
+
+Отримати дані про користувача з токена, для перевірки авторизації в основному.
+
+### /roles
+
+#### GET /
+
+Отримати існуючі ролі.
+
+#### Admin
+
+Може все, тільки адмін може створювати нові продукти, склади, редагувати та видаляти їх
+
+#### MANAGER
+
+Може те, що може кастомер. Також може редагувати, додавати і т.п. stocks
+
+#### CUSTOMER
+
+Може все окрім того, що унікально для менеджерів і адмінів
+
+## Розгортання серверу
+
+### Клонування з репозиторію
+
+Спочатку треба клонувати віддалений репозиторій за допомогою команди git clone <посилання на репозиторій>.
+
+### Конфігурація проекту
+
+Треба налаштувати файл змінних середовища .env таким чином, щоб там були поля RETAIL_DB_CONN_URI та SECRET_AUTH_KEY для з'єднання з базою даних та створення токенів відповідно.
+
+### Встановлення Node.js та бібліотек
+
+Спочатку треба встановити Node.js v18.16.1 та встановити pnpm через команду npm install -g pnpm. Після цього встановлюємо необхідні бібліотеки за допомогою команди pnpm install.
+
+### Запуск серверу
+
+Запускаємо сервер командою pnpm run start, яка білдить і запускає застосунок на порті 3000. Таким чином ми маємо працюючий сервер за адресою localhost:3000.

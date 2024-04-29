@@ -1,4 +1,5 @@
 import { WarehouseController } from "@/controllers/warehouse";
+import { PermissionsClass } from "@/utils/permissions";
 import { Router } from "express";
 
 export class WarehouseRouter {
@@ -11,9 +12,9 @@ export class WarehouseRouter {
     this.controller = new WarehouseController();
     this.router.get('/:id',this.controller.getWarehouseById)
     this.router.get('/',this.controller.getAllWarehouses)
-    this.router.post('/',this.controller.createWarehouse)
-    this.router.delete('/:id',this.controller.deleteWarehouse)
-    this.router.post('/:id',this.controller.updateWarehouse)
+    this.router.post('/', PermissionsClass.adminPermission, this.controller.createWarehouse)
+    this.router.delete('/:id', PermissionsClass.adminPermission, this.controller.deleteWarehouse)
+    this.router.post('/:id', PermissionsClass.adminPermission, this.controller.updateWarehouse)
     this.router.get('/withProduct/:id',this.controller.getAllWarehousesWithProduct)
   }
 }

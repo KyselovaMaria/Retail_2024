@@ -5,15 +5,19 @@ import { Employee } from "@/models/employee";
 import { Stock } from "@/models/stock";
 import { OrderListing } from "@/models/orderListing";
 import { Order } from "@/models/order";
+import { User } from "@/models/user";
+import { Role } from "@/models/role";
 
 const models = [
-    Customer,
+    // Customer,
     Product, 
     Warehouse, 
-    Employee, 
+    // Employee, 
     Stock,
     OrderListing,
-    Order
+    Order,
+    User,
+    Role
 ]
 
 export default models

@@ -14,17 +14,16 @@ export class Order extends Model {
     id: string
 
     @AllowNull(false)
-    @ForeignKey(() => Customer)
-    @Column(DataType.CHAR(36))
-    customerId: string
-
-    @AllowNull(false)
     @ForeignKey(() => Warehouse)
     @Column(DataType.CHAR(36))
     warehouseId: string
 
-    @BelongsTo(() => Customer)
-    customer: Customer
+    @Default(false)
+    @Column(DataType.BOOLEAN)
+    confirmed: boolean
+
+    @Column(DataType.STRING)
+    shippingAddress: string
 
     @BelongsTo(() => Warehouse)
     warehouse: Warehouse

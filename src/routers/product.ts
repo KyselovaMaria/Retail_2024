@@ -1,4 +1,5 @@
 import { ProductController } from "@/controllers/product";
+import { PermissionsClass } from "@/utils/permissions";
 import { Router } from "express";
 
 export class ProductRouter {
@@ -9,10 +10,10 @@ export class ProductRouter {
   constructor(path: string) {
     (this.router = Router()), (this.path = path);
     this.controller = new ProductController();
-    this.router.get('/:id',this.controller.getProductById)
+    this.router.get('/:id', this.controller.getProductById)
     this.router.get('/',this.controller.getAllProducts)
-    this.router.post('/',this.controller.createProduct)
-    this.router.delete('/:id',this.controller.deleteProduct)
-    this.router.post('/:id',this.controller.updateProduct)
+    this.router.post('/', PermissionsClass.adminPermission, this.controller.createProduct)
+    this.router.delete('/:id', PermissionsClass.adminPermission, this.controller.deleteProduct)
+    this.router.post('/:id', PermissionsClass.adminPermission, this.controller.updateProduct)
   }
 }

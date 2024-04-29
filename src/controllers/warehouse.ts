@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { notFound } from "@hapi/boom";
+import { forbidden, notFound } from "@hapi/boom";
 import { WarehouseDao } from "@/dao/warehouse";
 import { IWarehouseCreateRequest } from "@/@types/warehouse";
 import { StockDao } from "@/dao/stock";

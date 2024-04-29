@@ -1,7 +1,6 @@
 {
   "ts-node": {
-    "transpileOnly": true,
-    "require": []
+    "require": ["tsconfig-paths/register"]
   },
   "compilerOptions": {
     "experimentalDecorators": true,
@@ -16,11 +15,17 @@
     "strictPropertyInitialization": false,
     "strictNullChecks": false,
     "outDir": "./dist",
-    "baseUrl": "src",
+    "baseUrl": "./src",
     "paths": {
-      "@/*": ["*"]
-    },
+      "@/*": ["./*"],
+      "@models/*": ["./models/*"],
+      "@controllers/*": ["./controllers/*"],
+      "@routers/*": ["./routers/*"],
+      "@dao/*": ["./dao/*"],
+      "@config/*": ["./config/*"],
+      "@utils/*": ["./utils/*"]
+    }
   },
-  "include": ["src/**/*"],
+  "include": ["./src"],
   "exclude": ["node_modules"]
 }

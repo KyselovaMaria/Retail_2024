@@ -39,6 +39,16 @@ export class StockDao {
     return newStock.flat()[0];
   };
 
+  public static removeAmountFromStock = async (id: string, amount: number) => {
+    const stockExisting = await Stock.findByPk(id);
+    if (!stockExisting) return null;
+    const newStock = await Stock.decrement("amount", {
+      by: amount,
+      where: { id },
+    });
+    return newStock.flat()[0];
+  };
+
   public static getStockForProduct = async (productId: string) => {
     const stocks = await Stock.findAll({
       where: {

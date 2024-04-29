@@ -33,4 +33,7 @@ export class Product extends Model {
 
     @BelongsToMany(() => Warehouse, () => Stock)
     warehouse: Warehouse[]
+
+    @HasMany(() => OrderListing)
+    orderListings: OrderListing[]
 }

@@ -1,6 +1,6 @@
 import { OrderDaoCreate } from "@/@types/order";
-import { Customer } from "@/models/customer";
 import { Order } from "@/models/order";
+import { OrderListing } from "@/models/orderListing";
 import { Product } from "@/models/product";
 import { Warehouse } from "@/models/warehouse";
 
@@ -9,14 +9,26 @@ export class OrderDao {
 
   public static getAllOrders = async () => {
     const orders = await Order.findAll({
-      include: [Product, Customer, Warehouse]
+      include: [
+        {
+          model: OrderListing,
+          include: [Product]
+        },
+        Warehouse
+      ]
     });
     return orders
   };
 
   public static getOrderById = async (id: string) => {
     const order = await Order.findByPk(id, {
-      include: [Product, Customer, Warehouse]
+      include: [
+        {
+        model: OrderListing,
+        include: [Product]
+        },
+        Warehouse
+      ]
     })
     return order
   };
@@ -44,4 +56,12 @@ export class OrderDao {
     })
     return updatedOrder
   };
+
+  public static confirmOrder = async (id: string) => {
+    await Order.update({confirmed: true}, {
+      where: {
+        id
+      }
+    })
+  }
 }

@@ -1,14 +1,16 @@
 import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
-import sequelize from "@/config/sequelize.js";
+import sequelize from "@/config/sequelize";
 import { OrdersRouter } from "@/routers/order";
 import { Boom, isBoom } from "@hapi/boom";
-import { CustomerRouter } from "./routers/customer";
-import { EmployeeRouter } from "./routers/employee";
 import { WarehouseRouter } from "./routers/warehouse";
 import { ProductRouter } from "./routers/product";
 import { OrderListingRouter } from "./routers/orderListing";
 import { StockRouter } from "./routers/stock";
+import { JWTUtils } from "./utils/jwt.util";
+import { AuthRouter } from "./routers/auth";
+import { UserRouter } from "./routers/user";
+import { RolesRouter } from "./routers/roles";
 
 (async () => {
   const app = express();
@@ -20,19 +22,24 @@ import { StockRouter } from "./routers/stock";
   app.use(express.json());
   app.use(cors());
 
+  app.use(JWTUtils.authVerify)
+
   app.get('/api', (req,res) => {
     return res.status(200).send("found")
   })
 
   const orderRouter = new OrdersRouter("/order")
-  const customerRoute = new CustomerRouter("/customer")
-  const employeeRoute = new EmployeeRouter("/employee")
+  // const customerRoute = new CustomerRouter("/customer")
+  // const employeeRoute = new EmployeeRouter("/employee")
   const warehouseRouter = new WarehouseRouter("/warehouse")
   const productRouter = new ProductRouter("/product")
   const orderListingRouter = new OrderListingRouter("/orderListing")
   const stockRouter = new StockRouter("/stock")
+  const authRouter = new AuthRouter("/auth")
+  const userRouter = new UserRouter("/user")
+  const rolesRouter = new RolesRouter("/roles")
   
-  const routes = [orderRouter, customerRoute, employeeRoute, warehouseRouter, productRouter, orderListingRouter, stockRouter];
+  const routes = [orderRouter, warehouseRouter, productRouter, orderListingRouter, stockRouter, authRouter, userRouter, rolesRouter];
   routes.forEach((route) => {
     app.use(route.path, route.router);
   });

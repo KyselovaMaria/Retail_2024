@@ -1,5 +1,6 @@
 import { WarehouseDaoCreate } from "@/@types/warehouse";
 import { Product } from "@/models/product";
+import { Stock } from "@/models/stock";
 import { Warehouse } from "@/models/warehouse";
 import { Op } from "sequelize";
 
@@ -8,7 +9,12 @@ export class WarehouseDao {
 
   public static getAllWarehouses = async () => {
     const warehouses = await Warehouse.findAll({
-      include: [Product]
+      include: [
+        {
+          model: Stock,
+          include: [Product]
+        }
+      ]
     });
     return warehouses
   };
@@ -27,7 +33,12 @@ export class WarehouseDao {
 
   public static getWarehouseById = async (id: string) => {
     const warehouse = await Warehouse.findByPk(id, {
-      include: [Product]
+      include: [
+        {
+          model: Stock,
+          include: [Product]
+        }
+      ]
     })
     return warehouse
   };
