@@ -47,7 +47,7 @@ export class AuthController {
 
       const userExisting = await UserDao.getUserByUsername(username)
 
-      if(!userExisting) throw conflict('User already registered with this username')
+      if(userExisting) throw conflict('User already registered with this username')
   
       const hashedPassword = await bcrypt.hash(password, 5);
 

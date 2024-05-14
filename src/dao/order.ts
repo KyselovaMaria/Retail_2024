@@ -64,4 +64,19 @@ export class OrderDao {
       }
     })
   }
+
+  public static getWarehouseOrders = async (warehouseId: string) => {
+    const order = await Order.findAll({
+      where: {
+        warehouseId
+      },
+      include: [
+        {
+        model: OrderListing,
+        include: [Product]
+        }
+      ]
+    })
+    return order
+  };
 }

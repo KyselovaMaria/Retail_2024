@@ -11,6 +11,7 @@ import { JWTUtils } from "./utils/jwt.util";
 import { AuthRouter } from "./routers/auth";
 import { UserRouter } from "./routers/user";
 import { RolesRouter } from "./routers/roles";
+import { ReportRouter } from "./routers/report";
 
 (async () => {
   const app = express();
@@ -38,8 +39,9 @@ import { RolesRouter } from "./routers/roles";
   const authRouter = new AuthRouter("/auth")
   const userRouter = new UserRouter("/user")
   const rolesRouter = new RolesRouter("/roles")
+  const reportRouter = new ReportRouter("/report")
   
-  const routes = [orderRouter, warehouseRouter, productRouter, orderListingRouter, stockRouter, authRouter, userRouter, rolesRouter];
+  const routes = [orderRouter, warehouseRouter, productRouter, orderListingRouter, stockRouter, authRouter, userRouter, rolesRouter, reportRouter];
   routes.forEach((route) => {
     app.use(route.path, route.router);
   });

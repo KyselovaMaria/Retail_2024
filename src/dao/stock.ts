@@ -1,5 +1,6 @@
 import { StockDaoCreate } from "@/@types/stock";
 import sequelize from "@/config/sequelize";
+import { Product } from "@/models/product";
 import { Stock } from "@/models/stock";
 
 export class StockDao {
@@ -63,8 +64,6 @@ export class StockDao {
     if (stockFrom.amount < amount) return null
     const stockTo = await Stock.findByPk(stockToId)
     if (stockFrom.productId !== stockTo.productId) return null
-    console.log(stockFrom, 'stockFrom')
-    console.log(stockTo, 'stockTo')
 
     const t = await sequelize.transaction()
     
@@ -89,4 +88,17 @@ export class StockDao {
       throw err
     }
   }
+  public static getWarehouseStocks = async (warehouseId: string) => {
+    const stocks = await Stock.findAll({
+      where: {
+        warehouseId
+      },
+      include: [
+        {
+        model: Product
+        }
+      ]
+    })
+    return stocks
+  };
 }
