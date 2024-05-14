@@ -6,12 +6,12 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.0</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>Warehouse_Management</artifactId>
+    <artifactId>WarehouseManagement</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Warehouse Management</name>
+    <name>WarehouseManagement</name>
     <description>Warehouse Management</description>
     <properties>
         <java.version>17</java.version>
